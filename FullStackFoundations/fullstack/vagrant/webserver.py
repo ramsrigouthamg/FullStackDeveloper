@@ -1,6 +1,21 @@
 from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer
 import cgi
 
+
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+
+from database_setup import Restaurant, Base, MenuItem
+
+engine = create_engine('sqlite:///restaurantmenu.db')
+# Bind the engine to the metadata of the Base class so that the
+# declaratives can be accessed through a DBSession instance
+Base.metadata.bind = engine
+
+DBSession = sessionmaker(bind=engine)
+
+session = DBSession()
+
 class WebServerHandler(BaseHTTPRequestHandler):
 
     def do_GET(self):
@@ -25,6 +40,21 @@ class WebServerHandler(BaseHTTPRequestHandler):
                 message += "<html><body>"
                 message += "<h1>&#161 Hola !</h1>"
                 message += '''<form method='POST' enctype='multipart/form-data' action='/hello'><h2>What would you like me to say?</h2><input name="message" type="text" ><input type="submit" value="Submit"> </form>'''
+                message += "</body></html>"
+                self.wfile.write(message)
+                print message
+                return
+            if self.path.endswith("/restaurants"):
+                self.send_response(200)
+                self.send_header('Content-type', 'text/html')
+                self.end_headers()
+                message = ""
+                message += "<html><body>"
+                restaurants = session.query(Restaurant)
+                for restaurant in restaurants:
+                    message += "<h1>" + restaurant.name + "</h1>"
+
+                
                 message += "</body></html>"
                 self.wfile.write(message)
                 print message
