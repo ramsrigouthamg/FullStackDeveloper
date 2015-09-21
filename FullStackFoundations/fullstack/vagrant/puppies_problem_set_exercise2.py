@@ -36,14 +36,15 @@ puppies = session.query(Puppy).order_by(Puppy.weight)
 for puppy in puppies:
 	print puppy.weight
 """
-"""
+
 #4. Query all puppies grouped by the shelter in which they are staying
 
 puppies = session.query(Puppy).order_by(Puppy.shelter_id)
 
+
 for puppy in puppies:
 	print puppy.name , " ",puppy.shelter.name
-"""
+
 
 
 
