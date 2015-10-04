@@ -3,11 +3,11 @@
 <body>
 <h1> Edit Menu Item</h1>
 
-<form action="#" method = 'post'>
+<form action="{{url_for('editMenuitem', restaurant_id=restaurant.id,menu_id = item.id)}}" method = 'post'>
 	<p>Name:</p>
 	<input type='text' size='30' name='name' placeholder = '{{item.name}}'>
 	<input type='submit' value='Edit'>
-	<a href='#'>Cancel</a>
+	<a href='{{url_for('menu', restaurant_id = restaurant.id) }}'>Cancel</a>
 </form>
 
 
