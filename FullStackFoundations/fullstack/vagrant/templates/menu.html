@@ -3,6 +3,8 @@
 	<link rel=stylesheet type=text/css href="{{ url_for('static', filename='stylesFinalProject.css') }}">
 </head>
 <body>
+			<div class="container">
+			<div class="MainContent">
 <h1> {{restaurant.name}}</h1>
 
 <div class = 'flash'>
@@ -34,7 +36,10 @@ You currently have no items.
 
 
 {% for i in items %}
-		 <h3>{{i.name}}</h3> <br>
+<div class = 'restaurant'>
+		<div class = 'itemName'>
+		 <h3>{{i.name}}</h3> 
+		 </div>
 		 {{i.description}}<br>
 		 {{i.price}}<br>
 		 <a href='{{url_for('editMenuitem',restaurant_id=restaurant.id ,menu_id = i.id)}}'>Edit</a>
@@ -42,8 +47,10 @@ You currently have no items.
 		 <a href='{{url_for('deleteMenuitem',restaurant_id = restaurant.id,menu_id=i.id) }}'>Delete</a>
 		 <br>
 		 <br>
+		 </div>
 {% endfor %}
 
-
+	</div>
+	</div>
 </body>
 </html>
